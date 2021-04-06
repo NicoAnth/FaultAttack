@@ -109,3 +109,16 @@ std::string convertBinToHex(std::string bin)
     // required hexadecimal number
     return hex;   
 }
+
+//Swap position of two bits. 
+std::string swapBits (std::string bin, int p1, int p2){
+
+    int tmp1,tmp2;
+    tmp1 = bin[p1];
+    tmp2 = bin[p2];
+    bin[p1] = tmp2;
+    bin[p2] = tmp1;
+
+    return bin;
+
+}
