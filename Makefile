@@ -1,14 +1,17 @@
 CC=g++
-CFLAGS= -W -g -o
+CFLAGS= -g -Wall
 DEPS = FaultAttack.h BitsManips.h
 OBJ = Main.o FaultAttack.o BitsManips.o
 PROJECTNAME = FaultAttack
 
-%.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) $@ $<
+all: $(PROJECTNAME)
 
 $(PROJECTNAME): $(OBJ)
-	$(CC) $(CFLAGS) $@ $^ 
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.cpp $(DEPS)
+	$(CC) $(CFLAGS) -c $< -o $@
+ 
 
 clean:
 	rm $(PROJECTNAME) *.o

@@ -14,9 +14,14 @@ int main(int argc , char** argv) {
     std::string hexa = convertBinToHex(bin);
     std::cout << hexa << std::endl;
 
-    //Swap bits
-    std::string sbBin = swapBits(bin,62,2);
-    std::cout << sbBin << std::endl;
+    //IPFunction
+    std::string ipBin = ipDES(bin);
+    std::cout << ipBin << std::endl;
 
+    //SplitIntoLandR
+    std::string L16;
+    std::string R16;
+    splitIntoLandR(R16,L16,ipBin);
+    std::cout << R16 << ", "<< L16 << std::endl;
     return 0;
 }
