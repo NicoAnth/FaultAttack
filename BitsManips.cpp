@@ -94,7 +94,7 @@ std::string convertBinToHex(std::string bin)
         // of size 4 and add its hex code
         hex += bin_hex_map[bin.substr(i, 4)];
         i += 4;
-        if (i == bin.size())
+        if ((long unsigned int) i == bin.size())
             break;
              
         // if '.' is encountered add it
@@ -111,7 +111,7 @@ std::string convertBinToHex(std::string bin)
 }
 
 //Swap position of two bits. 
-std::string swapBits (std::string bin, int p1, int p2){
+void swapBits (std::string& bin, int p1, int p2){
 
     int tmp1,tmp2;
     tmp1 = bin[p1];
@@ -119,6 +119,18 @@ std::string swapBits (std::string bin, int p1, int p2){
     bin[p1] = tmp2;
     bin[p2] = tmp1;
 
-    return bin;
+}
 
+std::string XOR (std::string a, std::string b, int n){
+    
+    std::string ans = "";
+      
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] == b[i])
+            ans += "0";
+        else
+            ans += "1";
+    }
+    return ans;
 }
