@@ -1,8 +1,7 @@
 #include "BitsManips.h"
 
-const char* hex_char_to_bin(char c)
+const char* hexCharToBin(char c)
 {
-    // TODO handle default / error
     switch(toupper(c))
     {
         case '0': return "0000";
@@ -22,14 +21,14 @@ const char* hex_char_to_bin(char c)
         case 'E': return "1110";
         case 'F': return "1111";
     }
-    return 0;
+    return "conversion error";
 }
-
-std::string hex_str_to_bin_str(const std::string& hex)
+//Convert hex to binary
+std::string hexStrToBinStr(const std::string& hex)
 {
     std::string bin;
     for(unsigned i = 0; i != hex.length(); ++i)
-       bin += hex_char_to_bin(hex[i]);
+       bin += hexCharToBin(hex[i]);
     return bin;
 }
 
@@ -60,22 +59,16 @@ std::string convertBinToHex(std::string bin)
     int l = bin.size();
     int t = bin.find_first_of('.');
      
-    // length of string before '.'
     int len_left = t != -1 ? t : l;
      
-    // add min 0's in the beginning to make
-    // left substring length divisible by 4
     for (int i = 1; i <= (4 - len_left % 4) % 4; i++)
         bin = '0' + bin;
-     
-    // if decimal point exists   
+      
     if (t != -1)   
     {
-        // length of std::string after '.'
+        
         int len_right = l - len_left - 1;
          
-        // add min 0's in the end to make right
-        // substd::string length divisible by 4
         for (int i = 1; i <= (4 - len_right % 4) % 4; i++)
             bin = bin + '0';
     }
@@ -90,8 +83,6 @@ std::string convertBinToHex(std::string bin)
      
     while (1)
     {
-        // one by one extract from left, substring
-        // of size 4 and add its hex code
         hex += bin_hex_map[bin.substr(i, 4)];
         i += 4;
         if ((long unsigned int) i == bin.size())
@@ -106,7 +97,6 @@ std::string convertBinToHex(std::string bin)
         }
     }
      
-    // required hexadecimal number
     return hex;   
 }
 
@@ -120,7 +110,7 @@ void swapBits (std::string& bin, int p1, int p2){
     bin[p2] = tmp1;
 
 }
-
+// XOR two binary values, n is the size of the given strings.
 std::string XOR (std::string a, std::string b, int n){
     
     std::string ans = "";
@@ -133,4 +123,33 @@ std::string XOR (std::string a, std::string b, int n){
             ans += "1";
     }
     return ans;
+}
+//Convert decimal value to binary value. If i is specified, value's will be i bits.
+std::string convertDecimalToBinary(int decimal, long unsigned int i)
+{
+	std::string binary;
+    while(decimal != 0) {
+		binary = (decimal % 2 == 0 ? "0" : "1") + binary; 
+		decimal = decimal/2;
+	}
+	while(binary.length() < i){
+		binary = "0" + binary;
+	}
+    return binary;
+}
+
+// Function to convert a number in binary to decimal
+int convertBinaryToDecimal(std::string binary)
+{
+    int decimal = 0;
+	int counter = 0;
+	int size = binary.length();
+	for(int i = size-1; i >= 0; i--)
+	{
+    	if(binary[i] == '1'){
+        	decimal += pow(2, counter);
+    	}
+    counter++;
+	}
+	return decimal;
 }
