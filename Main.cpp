@@ -10,7 +10,7 @@ void faultAttackf(){
     "144FCD14635AECC9","004FEC34635AEC89","104FEC14435AECC9","004FAD14637AFD89","104FAC14635ADD89","044FAC14635AB9A9","804FED14625ABD89","14CFED04625AF989","144F6D14635AB989","144AED84635AB989",
     "144EED04E25AFD8D","144BED1463DAFD8D","144FED14635A7D9D","144AED54635BFD0D"};
 
-    for(int j=0;j<32;j++){
+    for(int j=0;j<1;j++){
         
     //Hexa into string bin
     std::string binC = hexStrToBinStr(correctCypher);
@@ -33,13 +33,14 @@ void faultAttackf(){
     //Expansion     
     std::string ER15 = expansion(L16);
     std::string ER15F = expansion(L16F);
-
+    std::cout << "ER15 :" << ER15 << std::endl;
+    std::cout << "ER15F :" << ER15F << std::endl;
     //Get the difference between the input of the S-boxes from the normal execution and the output of the S-boxes from the faulty execution
     std::string diffIn = XOR(ER15,ER15F,48);
     std::vector<std::string> sBoxInput = siBoxIn(diffIn);
-    /* std::cout << "diff In Value :" << diffIn << std::endl;
-    std::cout << "diff In Value hexa:" << convertBinToHex(diffIn) << std::endl;
-    std::cout << "S-box 8 input :" << sBoxInput[0] << std::endl; */
+    //std::cout << "diff In Value :" << diffIn << std::endl;
+    /*std::cout << "diff In Value hexa:" << convertBinToHex(diffIn) << std::endl;*/
+    std::cout << "S-box 1 input :" << sBoxInput[0] << std::endl;
 
 
     //Get the difference between the output of the S-boxes from the normal execution and the output of the S-boxes from the faulty execution
@@ -58,7 +59,13 @@ void faultAttackf(){
         value.push_back(diffDistributionTable[i][convertBinaryToDecimal(sBoxInput[i])][convertBinaryToDecimal(sBoxOutput[i])]);
         std::cout << value[i] << ", ";
     }
-        std::cout << std::endl;
+    for(int i=0;i<64;i++){
+        //std::cout << generatePairs(sBoxInput[0])[i].first << " ,"<< generatePairs(sBoxInput[0])[i].second << std::endl;
+        std::string entreePossible = XOR(sBox(generatePairs(sBoxInput[0])[i].first,0),sBox(generatePairs(sBoxInput[0])[i].second,0),4);
+        if(entreePossible == sBoxOutput[0]){
+        std::cout << XOR(generatePairs(sBoxInput[0])[i].first,ER15,6) << std::endl;
+        }
+    }
     }
 
 }

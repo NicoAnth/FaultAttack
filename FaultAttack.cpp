@@ -182,3 +182,20 @@ std::vector<std::vector<std::vector<int> > > siDDT (){
     return table;
 }
 
+//Return every pair given a XOR
+std::vector<std::pair<std::string,std::string>> generatePairs(std::string xorValue){
+
+    std::vector<std::pair<std::string,std::string>> pairs;
+    int xori = convertBinaryToDecimal(xorValue);
+    std::string value1;
+    std::string value2;
+
+    for(int i=0;i<64;i++){
+        for(int j=0;j<64;j++){
+            if((i^j) == xori){
+                pairs.push_back(std::make_pair(convertDecimalToBinary(i,6),convertDecimalToBinary(j,6)));
+            }
+        }
+    }
+    return pairs;
+}
