@@ -25,18 +25,25 @@ std::string expansion(std::string cipher){
     int expTab[48]{32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,12,13,14,15,16,17,16,17,18,19,20,21,20,21,22,23,24,25,24,25,26,27,28,29,28,29,30,31,32,1};
     int i;
     for(i=0;i<48;i++){
-        exp += cipher[expTab[i]-1];
+        exp+=cipher[expTab[i]-1];
     }
     return exp;
 }
 
 // Return P^-1 on the given string
 std::string reversePermutation(std::string cipher){
-    std::string revPerm=cipher;
-    int permTab[32]{16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25};
+    std::string revPerm="";
+    int permTab[32]{9, 17, 23, 31,
+                      13, 28, 2, 18,
+                      24, 16, 30, 6,
+                      26, 20, 10, 1,
+                      8, 14, 25, 3,
+                      4, 29, 11, 19,
+                      32, 12, 22, 7,
+                      5, 27, 15, 21};
     int i;
     for(i=0;i<32;i++){
-        swapBits(revPerm,i,permTab[i]-1);
+        revPerm+= cipher[permTab[i]-1];
     }
     return revPerm;
 }
