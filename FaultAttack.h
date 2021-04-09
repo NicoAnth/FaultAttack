@@ -17,5 +17,11 @@ std::vector<std::vector<std::vector<int> > > siDDT ();
 std::vector<std::pair<std::string,std::string>> generatePairs(std::string xorValue);
 std::vector<std::pair<std::string,int>> keyOccurrence(std::vector<std::string> keysVec);
 bool compare(std::pair<std::string, int> p1, std::pair<std::string, int> p2);
-
+int* reversePermutation(int perm[],int size);
+std::string permute(std::string k, int* arr, int n);
+std::string decompressKeyPC2(std::string K16);
+std::string decompressKeyPC1(std::string K16);
+std::vector<int> findUnknownBits(std::string Key);
+std::vector<std::string> generateEveryPossibleK(std::string k);
+std::string AddParityBits(std::string k);
 #endif

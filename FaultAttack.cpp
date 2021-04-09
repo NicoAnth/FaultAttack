@@ -232,3 +232,131 @@ bool compare(std::pair<std::string, int> p1, std::pair<std::string, int> p2) {
 
 
 } */
+
+//Reverse the given permutation
+//perm[] the table to inverse, size the size of the table
+int* reversePermutation(int perm[],int size){
+
+    int* per = (int*)calloc(size,sizeof(int));
+    for(int i = 0; i < size; i++)
+    {
+        per[perm[i] - 1] = i + 1;
+    }
+    for(int i = 0; i < size; i++)
+    {
+        std::cout << per[i] << ", ";
+    } std::cout << std::endl;
+
+    return per;
+}
+
+//Permute the given string
+//k string to permute, arr the matrix and n size of matrix
+std::string permute(std::string k, int* arr, int n)
+{
+    std::string per = "";
+    for (int i = 0; i < n; i++) {
+        if(arr[i]==0){
+           per +="x"; 
+        }
+        else{
+        per += k[arr[i] - 1];
+        }
+    }
+    return per;
+}
+//Decompress the given Key with PC2^-1
+std::string decompressKeyPC2(std::string K16)
+{
+int key_comp[48] = { 14, 17, 11, 24, 1, 5,
+                       3, 28, 15, 6, 21, 10,
+                       23, 19, 12, 4, 26, 8,
+                       16, 7, 27, 20, 13, 2,
+                       41, 52, 31, 37, 47, 55,
+                       30, 40, 51, 45, 33, 48,
+                       44, 49, 39, 56, 34, 53,
+                       46, 42, 50, 36, 29, 32 };
+
+   std::string K16_extended(56, 'x');
+   for(int i = 0; i < 48; i++)
+   {
+     K16_extended[key_comp[i] - 1] = K16[i];
+   }
+ 
+   return K16_extended;
+}
+
+//Apply PC1^-1 on the given Key
+std::string decompressKeyPC1(std::string K16)
+{
+    int pc1[56] = {
+        57,49,41,33,25,17,9, 
+        1,58,50,42,34,26,18, 
+        10,2,59,51,43,35,27, 
+        19,11,3,60,52,44,36,		 
+        63,55,47,39,31,23,15, 
+        7,62,54,46,38,30,22, 
+        14,6,61,53,45,37,29, 
+        21,13,5,28,20,12,4 
+        };
+
+   std::string K16_extended(64, '!');
+   for(int i = 0; i < 56; i++)
+   {
+     K16_extended[pc1[i] - 1] = K16[i];
+   }
+ 
+   return K16_extended;
+}
+
+//Find every unknown bits of K
+std::vector<int> findUnknownBits(std::string Key){
+
+    std::vector<int> unknownBits;
+
+    for(int i=0;i<(int)Key.size();i++){
+        if(Key[i]=='x'){
+            unknownBits.push_back(i);
+        }
+    }
+    return unknownBits;
+}
+
+//Get every possible K
+std::vector<std::string> generateEveryPossibleK(std::string k){
+    
+    std::string candidateBits;
+    std::vector<std::string> candidateKeys;
+    std::string candidateKey;
+    int tmp;
+
+    for (int i=0;i<256;i++){
+        candidateBits = convertDecimalToBinary(i,8);
+        candidateKey = k;
+        tmp=0;
+        for(int j=0;j<(int)k.size();j++){
+            if(candidateKey[j] =='x'){
+                candidateKey[j]= candidateBits[tmp];
+                tmp++;
+            }
+        }
+        candidateKeys.push_back(AddParityBits(candidateKey));
+    }
+    return candidateKeys;
+}
+
+//Return the given key with parity Bits
+std::string AddParityBits(std::string k){
+
+    int number = 0;
+    std::string kWithParity = k;
+    for(int i=7;i<64;i+=8){
+        for(int j=0; j<8;j++){
+            number+=(int)k[j];
+        }
+        if(number%2 == 0) kWithParity[i]=1;
+        else kWithParity[i]=0;
+    }
+
+    return kWithParity;
+}

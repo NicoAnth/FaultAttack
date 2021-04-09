@@ -124,6 +124,20 @@ std::string XOR (std::string a, std::string b, int n){
     }
     return ans;
 }
+// Function to compute xor between two strings
+std::string Xor(std::string a, std::string b){ 
+	std::string result = ""; 
+	int size = b.size();
+	for(int i = 0; i < size; i++){ 
+		if(a[i] != b[i]){ 
+			result += "1"; 
+		}
+		else{ 
+			result += "0"; 
+		} 
+	} 
+	return result; 
+}
 //Convert decimal value to binary value. If i is specified, value's will be i bits.
 std::string convertDecimalToBinary(int decimal, long unsigned int i)
 {
@@ -152,4 +166,28 @@ int convertBinaryToDecimal(std::string binary)
     counter++;
 	}
 	return decimal;
+}
+
+// Function to do a circular left shift by 1
+std::string shift_left_once(std::string key_chunk){ 
+    std::string shifted="";  
+        for(int i = 1; i < 28; i++){ 
+            shifted += key_chunk[i]; 
+        } 
+        shifted += key_chunk[0];   
+    return shifted; 
+} 
+
+// Function to do a circular left shift by 2
+std::string shift_left_twice(std::string key_chunk){ 
+    std::string shifted=""; 
+    for(int i = 0; i < 2; i++){ 
+        for(int j = 1; j < 28; j++){ 
+            shifted += key_chunk[j]; 
+        } 
+        shifted += key_chunk[0]; 
+        key_chunk= shifted; 
+        shifted =""; 
+    } 
+    return key_chunk; 
 }

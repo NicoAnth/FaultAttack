@@ -1,49 +1,14 @@
 #include "DES.h"
 
 using namespace std;
+
 // Array to hold 16 keys
 string round_keys[16];
 // String to hold the plain text
-string pt;
+string pt = hexStrToBinStr("64706BDA3B79FDD0");
 
-// Function to do a circular left shift by 1
-string shift_left_once(string key_chunk){ 
-    string shifted="";  
-        for(int i = 1; i < 28; i++){ 
-            shifted += key_chunk[i]; 
-        } 
-        shifted += key_chunk[0];   
-    return shifted; 
-} 
-// Function to do a circular left shift by 2
-string shift_left_twice(string key_chunk){ 
-    string shifted=""; 
-    for(int i = 0; i < 2; i++){ 
-        for(int j = 1; j < 28; j++){ 
-            shifted += key_chunk[j]; 
-        } 
-        shifted += key_chunk[0]; 
-        key_chunk= shifted; 
-        shifted =""; 
-    } 
-    return key_chunk; 
-}
-// Function to compute xor between two strings
-string Xor(string a, string b){ 
-	string result = ""; 
-	int size = b.size();
-	for(int i = 0; i < size; i++){ 
-		if(a[i] != b[i]){ 
-			result += "1"; 
-		}
-		else{ 
-			result += "0"; 
-		} 
-	} 
-	return result; 
-} 
 // Function to generate the 16 keys.
-void generate_keys(string key){
+void generateKeys(std::string key){
 	// The PC1 table
 	int pc1[56] = {
 	57,49,41,33,25,17,9, 
@@ -237,7 +202,7 @@ string DES(){
 	// 4. The halves of the plain text are applied
 	string combined_text = left + right;   
 	string ciphertext =""; 
-	// The inverse of the initial permuttaion is applied
+	// The inverse of the initial permutation is applied
 	for(int i = 0; i < 64; i++){ 
 		ciphertext+= combined_text[inverse_permutation[i]-1]; 
 	}
