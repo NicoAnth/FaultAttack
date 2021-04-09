@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS= -g -Wall
-DEPS = FaultAttack.h BitsManips.h
-OBJ = Main.o FaultAttack.o BitsManips.o
+DEPS = FaultAttack.h BitsManips.h DES.h
+OBJ = Main.o FaultAttack.o BitsManips.o DES.o
 PROJECTNAME = FaultAttack
 
 all: $(PROJECTNAME)

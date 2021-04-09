@@ -10,7 +10,7 @@ std::string ipDES(std::string cipher){
         ipx+=cipher[ipTab[i]-1];
     } 
     return ipx;
-}   
+}
 
 //Split the given string to half L and R values 
 void splitIntoLandR(std::string& L, std::string& R, std::string cipher){
@@ -182,13 +182,11 @@ std::vector<std::vector<std::vector<int> > > siDDT (){
     return table;
 }
 
-//Return every pair given a XOR
+//Return every pair given a XOR.
 std::vector<std::pair<std::string,std::string>> generatePairs(std::string xorValue){
 
     std::vector<std::pair<std::string,std::string>> pairs;
     int xori = convertBinaryToDecimal(xorValue);
-    std::string value1;
-    std::string value2;
 
     for(int i=0;i<64;i++){
         for(int j=0;j<64;j++){
@@ -199,3 +197,38 @@ std::vector<std::pair<std::string,std::string>> generatePairs(std::string xorVal
     }
     return pairs;
 }
+
+//Return the number of occurrence of a key given a vector of possible keys
+//keyOccurence[key number]= "key string", occurrence
+std::vector<std::pair<std::string,int>> keyOccurrence(std::vector<std::string> keysVec){
+    
+    std::vector<std::string> keysVecCopy = keysVec;
+
+    std::sort(keysVecCopy.begin(), keysVecCopy.end());
+    keysVecCopy.erase(std::unique(keysVecCopy.begin(), keysVecCopy.end()), keysVecCopy.end());
+    
+    std::vector<std::pair<std::string,int>> keyOc(keysVecCopy.size(),std::make_pair("",0));
+
+    for(int i=0;i != (int)keyOc.size();i++){
+        keyOc[i].first = keysVecCopy[i];
+    }
+    for(int i=0;i != (int)keysVec.size();i++){
+        keyOc[i].second = count(keysVec.begin(),keysVec.end(),keysVecCopy[i]);
+    }
+
+    return keyOc;
+}
+
+bool compare(std::pair<std::string, int> p1, std::pair<std::string, int> p2) {
+    return p1.second<p2.second;
+}
+
+//Return the key K16
+/* std::vector<std::string> findK16(std::vector<std::pair<std::string,int>> kOccurrence){
+    
+    std::vector<std::string> key;
+    for(int i=0;i<)
+    max_element(kOccurrence[i].begin(), kOccurrence[i].end(), compare)
+
+
+} */
