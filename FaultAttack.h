@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <algorithm>
-
+#include "DES.h"
 #include "BitsManips.h"
 
 std::string ipDES(std::string chiffre);
@@ -22,6 +22,8 @@ std::string permute(std::string k, int* arr, int n);
 std::string decompressKeyPC2(std::string K16);
 std::string decompressKeyPC1(std::string K16);
 std::vector<int> findUnknownBits(std::string Key);
-std::vector<std::string> generateEveryPossibleK(std::string k);
+std::vector<std::string> generateEveryPossibleK(std::vector<int> unknownBitsPos,std::string k);
 std::string AddParityBits(std::string k);
+std::vector<std::string> faultAttackf();
+void findDESKey(std::string k16);
 #endif

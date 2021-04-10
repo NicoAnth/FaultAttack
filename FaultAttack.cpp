@@ -223,15 +223,6 @@ bool compare(std::pair<std::string, int> p1, std::pair<std::string, int> p2) {
     return p1.second<p2.second;
 }
 
-//Return the key K16
-/* std::vector<std::string> findK16(std::vector<std::pair<std::string,int>> kOccurrence){
-    
-    std::vector<std::string> key;
-    for(int i=0;i<)
-    max_element(kOccurrence[i].begin(), kOccurrence[i].end(), compare)
-
-
-} */
 
 //Reverse the given permutation
 //perm[] the table to inverse, size the size of the table
@@ -323,40 +314,43 @@ std::vector<int> findUnknownBits(std::string Key){
 }
 
 //Get every possible K
-std::vector<std::string> generateEveryPossibleK(std::string k){
+std::vector<std::string> generateEveryPossibleK(std::vector<int> unknownBitsPos,std::string k){
     
-    std::string candidateBits;
+    std::vector<std::string> candidateBits;
     std::vector<std::string> candidateKeys;
     std::string candidateKey;
-    int tmp;
 
     for (int i=0;i<256;i++){
-        candidateBits = convertDecimalToBinary(i,8);
+        candidateBits.push_back(convertDecimalToBinary(i,8));
+    }
+
+    for(int i =0;i<256;i++){
         candidateKey = k;
-        tmp=0;
-        for(int j=0;j<(int)k.size();j++){
-            if(candidateKey[j] =='x'){
-                candidateKey[j]= candidateBits[tmp];
-                tmp++;
-            }
+        for(int j=0; j<(int)unknownBitsPos.size();j++){
+            candidateKey[unknownBitsPos[j]] = candidateBits[i][j];
         }
         candidateKeys.push_back(AddParityBits(candidateKey));
     }
+
     return candidateKeys;
 }
 
 //Return the given key with parity Bits
 std::string AddParityBits(std::string k){
-
+    
+    std::string returnValue = k;
     int number = 0;
-    std::string kWithParity = k;
     for(int i=7;i<64;i+=8){
-        for(int j=0; j<8;j++){
-            number+=(int)k[j];
+        for(int j=i-7; j<i;j++){
+            number+= k[j]-48;
         }
-        if(number%2 == 0) kWithParity[i]=1;
-        else kWithParity[i]=0;
+        if(number%2 == 0) 
+        {
+            returnValue[i]='1';
+        }
+        else returnValue[i]='0'; 
+        number = 0;        
     }
+    return returnValue;
 
-    return kWithParity;
 }
