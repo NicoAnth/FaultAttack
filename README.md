@@ -4,7 +4,7 @@ A Differential Fault Attack against last round of DES.
 
 ## Installation
 
-Simply use make command to compile.
+Simply use make command to compile on Linux.
 
 ```bash
 make
@@ -12,6 +12,7 @@ make
 
 ## Usage
 
+In order to find the key, you must own one correct cipher and 16 faulty cipher provoked on the 15th round of DES. 
 Hardcode your correct and your faulty ciphers in FaultAttack.cpp, faultAttack16() function. Then run the program, it will return the key associate to your cipher. 
 
 ```cpp
