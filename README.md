@@ -4,7 +4,7 @@ A Differential Fault Attack against last round of DES.
 
 ## Installation
 
-Simply make command to compile.
+Simply use make command to compile.
 
 ```bash
 make
